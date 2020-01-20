@@ -1,6 +1,7 @@
 import React from "react";
 import Loadable from "react-loadable";
 
+
 const loading = <div>Loading...</div>;
 
 export const Home = Loadable({
@@ -20,5 +21,10 @@ export const Login = Loadable({
 
 export const Logout = Loadable({
   "loader": () => import("../components/Logout"),
+  "loading": () => loading
+});
+
+export const Dashboard = Loadable({
+  "loader": () => import("../views/Dashboard"),
   "loading": () => loading
 });

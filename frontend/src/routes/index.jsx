@@ -4,7 +4,8 @@ import { Redirect } from "react-router";
 import { loadProgressBar } from "axios-progress-bar";
 import "../assets/progress-bar.css";
 
-import { Home, ErrorPage404, Login, Logout } from "./LazyLoadRoutes";
+import { Home, ErrorPage404, Login, Logout, Dashboard } from "./LazyLoadRoutes";
+
 import { checkToken } from "../utils/jwt";
 
 loadProgressBar();
@@ -44,7 +45,7 @@ export default class Routes extends Component {
               <Logout {...props} setRouterToken={this.setToken.bind(this)} />
             )}
           />
-          <AuthRoute exact path="/" component={Home} />
+          <AuthRoute exact path="/" component={Dashboard} />
           <Route component={ErrorPage404} />
         </Switch>
       </main>
