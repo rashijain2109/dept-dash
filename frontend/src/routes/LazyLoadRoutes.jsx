@@ -28,3 +28,6 @@ export const Dashboard = Loadable({
   "loader": () => import("../views/Dashboard"),
   "loading": () => loading
 });
+
+
+

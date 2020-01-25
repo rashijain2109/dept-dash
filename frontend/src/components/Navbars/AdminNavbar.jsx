@@ -16,7 +16,8 @@
 
 */
 import React, { Component } from "react";
-import { Navbar } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
+import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 
 import AdminNavbarLinks from "./AdminNavbarLinks.jsx";
 
@@ -46,13 +47,11 @@ class Header extends Component {
   }
   render() {
     return (
-      <Navbar fluid>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="#pablo">{this.props.brandText}</a>
-          </Navbar.Brand>
-          <Navbar.Toggle onClick={this.mobileSidebarToggle} />
-        </Navbar.Header>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand>
+        <a href="#pablo">{this.props.brandText}</a>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse>
           <AdminNavbarLinks />
         </Navbar.Collapse>

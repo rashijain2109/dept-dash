@@ -20,7 +20,7 @@ import { NavLink } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 
-import logo from "assets/img/reactlogo.png";
+import logo from "../../assets/img/reactlogo.png";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -68,7 +68,7 @@ class Sidebar extends Component {
             href="https://www.creative-tim.com?ref=lbd-sidebar"
             className="simple-text logo-normal"
           >
-            Creative Tim
+            CSIS
           </a>
         </div>
         <div className="sidebar-wrapper">
@@ -81,12 +81,12 @@ class Sidebar extends Component {
                     className={
                       prop.upgrade
                         ? "active active-pro"
-                        : this.activeRoute(prop.layout + prop.path)
+                        : this.activeRoute(prop.path)
                     }
                     key={key}
                   >
                     <NavLink
-                      to={prop.layout + prop.path}
+                      to={prop.path}
                       className="nav-link"
                       activeClassName="active"
                     >
