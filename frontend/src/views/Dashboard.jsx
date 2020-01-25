@@ -19,6 +19,8 @@ import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Container, Row, Col } from "react-bootstrap";
 
+import {axiosGET, axiosPOST, axiosDELETE} from "../utils/axiosClient.js"
+
 import { Card } from "../components/Card/Card.jsx";
 import { StatsCard } from "../components/StatsCard/StatsCard.jsx";
 import { Tasks } from "../components/Tasks/Tasks.jsx";
@@ -35,7 +37,43 @@ import {
   legendBar
 } from "../variables/Variables.jsx";
 
+import { getScholarCount, getProjectsCount, getPublicationsCount, getFacultyCount } from "../utils/stats/dashboard_stats.js";
+
 class Dashboard extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      scholarsData: [],
+      publicationsData: [],
+      projectsData: [],
+    }
+  }
+
+  componentDidMount() {
+    axiosGET('http://localhost:8000/api/scholars/')
+      .then(res => {
+        const scholarsData = res.data;
+        this.setState({ scholarsData });
+        console.log(scholarsData);
+      })
+
+    axiosGET('http://localhost:8000/api/publications/')
+      .then(res => {
+        const publicationsData = res.data;
+        this.setState({ publicationsData });
+        console.log(publicationsData);
+      })
+
+    axiosGET('http://localhost:8000/api/projects/')
+      .then(res => {
+        const projectsData = res.data;
+        this.setState({ projectsData });
+        console.log(projectsData);
+      })
+  }
+
   createLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -54,8 +92,8 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-server text-warning" />}
-                statsText="Capacity"
-                statsValue="105GB"
+                statsText="Research Scholar"
+                statsValue={getScholarCount(this.state.scholarsData)}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
@@ -63,8 +101,8 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-wallet text-success" />}
-                statsText="Revenue"
-                statsValue="$1,345"
+                statsText="Faculty"
+                statsValue={getFacultyCount()}
                 statsIcon={<i className="fa fa-calendar-o" />}
                 statsIconText="Last day"
               />
@@ -72,8 +110,8 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-graph1 text-danger" />}
-                statsText="Errors"
-                statsValue="23"
+                statsText="Projects"
+                statsValue={getProjectsCount(this.state.projectsData)}
                 statsIcon={<i className="fa fa-clock-o" />}
                 statsIconText="In the last hour"
               />
@@ -81,8 +119,8 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="fa fa-twitter text-info" />}
-                statsText="Followers"
-                statsValue="+45"
+                statsText="Publications"
+                statsValue={getPublicationsCount(this.state.publicationsData)}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
