@@ -19,7 +19,7 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import NotificationSystem from "react-notification-system";
 import { Redirect } from "react-router";
-import { Home, ErrorPage404, Login, Logout, Dashboard } from "../routes/LazyLoadRoutes";
+import { Home, ErrorPage404, Login, Logout, Dashboard, UserProfile, TableList } from "../routes/LazyLoadRoutes";
 
 import AdminNavbar from "../components/Navbars/AdminNavbar";
 import Footer from "../components/Footer/Footer";
@@ -200,6 +200,8 @@ class Admin extends Component {
           />
           <Switch>
             <Route path = "/admin/dashboard" component = {Dashboard}/>
+            <Route path = "/admin/user" component = {UserProfile} />
+            <Route path = "/admin/table" component = {TableList} />
             <Redirect to= "/admin/dashboard" />
           </Switch>
         </div>
