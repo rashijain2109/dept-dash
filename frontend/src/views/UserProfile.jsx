@@ -132,6 +132,91 @@ class UserProfile extends Component {
               />
             </Col>
           </Row>
+
+          <Row>
+            <Col md={12}>
+              <Card 
+                title="Add Publications"
+                content={
+                  <form>
+                    <Row>
+                      <div className="col-md-6" key={1}>
+                        <FormGroup>
+                          <FormLabel>Select Authors</FormLabel>
+                          <FormControl as="select" multiple>
+                            <option>Daksh Yashlaha</option>
+                            <option>Rashi Jain</option>
+                            <option>Nihal Jain</option>
+                            <option>Pranjal Gupta</option>
+                            <option>Ujjwal Raizada</option>
+                            <option>Krut Patel</option>
+                          </FormControl>
+                        </FormGroup>
+                      </div>
+                    </Row>
+
+                    <Row>
+                      <div className="col-md-12" key={1}>
+                        <FormGroup>
+                          <FormLabel>Title</FormLabel>
+                          <FormControl type="text" />
+                        </FormGroup>
+                      </div>
+                    </Row>
+
+                    <Row>
+                      <div className="col-md-6" key={2}>
+                        <FormGroup>
+                          <FormLabel>Status</FormLabel>
+                          <FormControl as="select">
+                            <option>Communicated</option>
+                            <option>Rejected</option>
+                            <opton>Accepted</opton>
+                          </FormControl>
+                        </FormGroup>
+                      </div>
+
+                      <div className="col-md-6" key={3}>
+                        <FormGroup>
+                          <FormLabel>Publication Type</FormLabel>
+                          <FormControl as="select">
+                            <option>Conference</option>
+                            <option>Journal</option>
+                          </FormControl>
+                        </FormGroup>
+                      </div>
+                    </Row>
+
+                    <Row>
+                      <div className="col-md-12">
+                        <FormGroup>
+                          <FormLabel>Details</FormLabel>
+                          <FormControl as="textarea" rows={3} />
+                        </FormGroup>
+                      </div>
+                    </Row>
+                    
+                    <Row>
+                      <div className="col-md-6">
+                        <FormGroup>
+                          <FormLabel>Digital Object Identifier Number</FormLabel>
+                          <FormControl as="text" />
+                        </FormGroup>
+                      </div>
+                      <div className="col-md-6">
+                        <FormGroup>
+                          <FormLabel>Page Number</FormLabel>
+                          <FormControl as="text" />
+                        </FormGroup>
+                      </div>
+                    </Row>
+
+                    <div className="clearfix" />
+                  </form>
+                }
+              />
+            </Col>
+          </Row>
         </Container>
       </div>
     );
