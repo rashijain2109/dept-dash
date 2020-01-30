@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 import {
   Container,
@@ -26,22 +9,65 @@ import {
 } from "react-bootstrap";
 
 import { Card } from "../components/Card/Card.jsx";
-import { FormInputs } from "../components/FormInputs/FormInputs.jsx";
-import { UserCard } from "../components/UserCard/UserCard.jsx";
 import Button from "../components/CustomButton/CustomButton.jsx";
 
-import avatar from "../assets/img/faces/face-3.jpg";
 
 class UserProfile extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+    }
+  }
+
   render() {
+
+    var title = "";
+    var status = "";
+    var description = "";
+    var agency = "";
+    var scheme = "";
+    var pi_copi = "";
+    var id = "";
+    if(this.props.type == "Add Project"){
+
+    }
+    else{
+      if(this.props.data["status"] == "REJ"){
+        status="Rejected";
+      }
+      else if(this.props.data["status"] == "ACT"){
+          status="Accepted";
+      }
+      else if(this.props.data["status"] == "COM"){
+          status="Communication";
+      }
+
+      title = this.props.data["title"];
+      description = this.props.data["details"];
+      agency = this.props.data["agency"];
+      scheme = this.props.data["scheme"];
+      pi_copi = this.props.data["pi_copi"];
+      id = this.props.data["id"];
+    }
     return (
+
       <div className="content">
         <Container fluid>
           <Row>
             <Col md={12}>
               <Card
-                title="Add Project"
                 content={
+                  <div>
+                  <Row>
+                  <Col md={10}>
+                <h4 className="title">{this.props.type}</h4>
+                  </Col>
+                  <Col md={2}>
+                  <button type="button" onClick={this.props.handleClose} 
+                                                  class="btn btn-info">Close</button>
+                  </Col>
+                  </Row>
                   <form>
                     <Row>
                       <div className="col-md-6" key={1}>
@@ -73,14 +99,14 @@ class UserProfile extends Component {
                       <div className="col-md-8" key={1}>
                       <FormGroup>
                         <FormLabel>Title</FormLabel>
-                        <FormControl type="text" />
+                        <FormControl type="text" defaultValue={title} key={id} />
                       </FormGroup>
                       </div>
 
                       <div className="col-md-4" key={2}>
                       <FormGroup>
                         <FormLabel>Status</FormLabel>
-                        <FormControl as="select">
+                        <FormControl as="select" defaultValue={status} key={id}>
                           <option>Communicated</option>
                           <option>Rejected</option>
                           <option>Accepted</option>
@@ -93,7 +119,7 @@ class UserProfile extends Component {
                       <div className="col-md-12" key={1}>
                       <FormGroup>
                         <FormLabel>Description</FormLabel>
-                        <FormControl as="textarea" rows={3} />
+                        <FormControl as="textarea" rows={3} defaultValue={description} key={id}/>
                       </FormGroup>
                       </div>
                     </Row>
@@ -102,14 +128,14 @@ class UserProfile extends Component {
                       <div className="col-md-6" key={1}>
                       <FormGroup>
                       <FormLabel>Agency</FormLabel>
-                      <FormControl type="text" />
+                      <FormControl type="text" defaultValue={agency} key={id}/>
                       </FormGroup>
                       </div>
 
                       <div className="col-md-6" key={2}>
                       <FormGroup>
                         <FormLabel>Scheme</FormLabel>
-                        <FormControl type="text" />
+                        <FormControl type="text" defaultValue={scheme} key={id} />
                       </FormGroup>
                       </div>
                     </Row>
@@ -118,7 +144,7 @@ class UserProfile extends Component {
                       <div className="col-md-12" key={1}>
                       <FormGroup>
                         <FormLabel>Principal Investigator / Co-Investigator</FormLabel>
-                        <FormControl type="text" />
+                        <FormControl type="text" defaultValue={pi_copi} key={id}/>
                       </FormGroup>
                       </div>
                     </Row>
@@ -127,100 +153,23 @@ class UserProfile extends Component {
                       Submit
                     </Button>
                     <div className="clearfix" />
+
                   </form>
-                }
-              />
-            </Col>
-          </Row>
-
-          <Row>
-            <Col md={12}>
-              <Card 
-                title="Add Publications"
-                content={
-                  <form>
-                    <Row>
-                      <div className="col-md-6" key={1}>
-                        <FormGroup>
-                          <FormLabel>Select Authors</FormLabel>
-                          <FormControl as="select" multiple>
-                            <option>Daksh Yashlaha</option>
-                            <option>Rashi Jain</option>
-                            <option>Nihal Jain</option>
-                            <option>Pranjal Gupta</option>
-                            <option>Ujjwal Raizada</option>
-                            <option>Krut Patel</option>
-                          </FormControl>
-                        </FormGroup>
-                      </div>
-                    </Row>
-
-                    <Row>
-                      <div className="col-md-12" key={1}>
-                        <FormGroup>
-                          <FormLabel>Title</FormLabel>
-                          <FormControl type="text" />
-                        </FormGroup>
-                      </div>
-                    </Row>
-
-                    <Row>
-                      <div className="col-md-6" key={2}>
-                        <FormGroup>
-                          <FormLabel>Status</FormLabel>
-                          <FormControl as="select">
-                            <option>Communicated</option>
-                            <option>Rejected</option>
-                            <opton>Accepted</opton>
-                          </FormControl>
-                        </FormGroup>
-                      </div>
-
-                      <div className="col-md-6" key={3}>
-                        <FormGroup>
-                          <FormLabel>Publication Type</FormLabel>
-                          <FormControl as="select">
-                            <option>Conference</option>
-                            <option>Journal</option>
-                          </FormControl>
-                        </FormGroup>
-                      </div>
-                    </Row>
-
-                    <Row>
-                      <div className="col-md-12">
-                        <FormGroup>
-                          <FormLabel>Details</FormLabel>
-                          <FormControl as="textarea" rows={3} />
-                        </FormGroup>
-                      </div>
-                    </Row>
-                    
-                    <Row>
-                      <div className="col-md-6">
-                        <FormGroup>
-                          <FormLabel>Digital Object Identifier Number</FormLabel>
-                          <FormControl as="text" />
-                        </FormGroup>
-                      </div>
-                      <div className="col-md-6">
-                        <FormGroup>
-                          <FormLabel>Page Number</FormLabel>
-                          <FormControl as="text" />
-                        </FormGroup>
-                      </div>
-                    </Row>
-
-                    <div className="clearfix" />
-                  </form>
+                </div>
                 }
               />
             </Col>
           </Row>
         </Container>
       </div>
+
     );
+
   }
+
 }
 
 export default UserProfile;
+
+
+

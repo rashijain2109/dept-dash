@@ -19,7 +19,7 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import NotificationSystem from "react-notification-system";
 import { Redirect } from "react-router";
-import { Home, ErrorPage404, Login, Logout, Dashboard, UserProfile, TableList } from "../routes/LazyLoadRoutes";
+import { Home, ErrorPage404, Login, Logout, Dashboard, TableList, Projects } from "../routes/LazyLoadRoutes";
 
 import AdminNavbar from "../components/Navbars/AdminNavbar";
 import Footer from "../components/Footer/Footer";
@@ -173,7 +173,7 @@ class Admin extends Component {
       this.refs.mainPanel.scrollTop = 0;
     }
   }
- getBrandText = () => {
+getBrandText = path => {
   for (let i = 0; i < routes.length; i++) {
     if (
       this.props.location.pathname.indexOf(
@@ -187,7 +187,6 @@ class Admin extends Component {
 };
   render() {
    return (
-    <BrowserRouter>
       <div className="wrapper">
       <NotificationSystem ref="notificationSystem" style={style} />
         <Sidebar {...this.props} routes={routes} image={this.state.image}
@@ -196,17 +195,16 @@ class Admin extends Component {
         <div id="main-panel" className="main-panel" ref="mainPanel">
         <AdminNavbar
             {...this.props}
-            brandText={this.getBrandText()}
+            brandText={this.getBrandText(this.props.location.pathname)}
           />
           <Switch>
-            <Route path = "/admin/dashboard" component = {Dashboard}/>
-            <Route path = "/admin/user" component = {UserProfile} />
-            <Route path = "/admin/table" component = {TableList} />
+            <Route path = "/admin/dashboard" render={props => (<Dashboard {...props} handleClick={this.handleNotificationClick} /> )} />
+            <Route path = "/admin/table" render={props => (<TableList {...props} handleClick={this.handleNotificationClick} /> )} />
+            <Route path = "/admin/projects" render={props => (<Projects {...props} handleClick={this.handleNotificationClick} /> )} />
             <Redirect to= "/admin/dashboard" />
           </Switch>
         </div>
       </div>
-      </BrowserRouter>
       
     );
   }

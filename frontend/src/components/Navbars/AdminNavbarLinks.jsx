@@ -47,12 +47,12 @@ class AdminNavbarLinks extends Component {
             <Dropdown.Item eventKey={2.4}>Notification 4</Dropdown.Item>
             <Dropdown.Item eventKey={2.5}>Another notifications</Dropdown.Item>
           </NavDropdown> */}
-          <NavDropdown title="Notifications" id="basic-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+          <NavDropdown eventKey={2} title="Notifications" noCaret id="basic-nav-dropdown">
+        <NavDropdown.Item href="#action/2.1">Action</NavDropdown.Item>
+        <NavDropdown.Item href="#action/2.2">Another action</NavDropdown.Item>
+        <NavDropdown.Item href="#action/2.3">Something</NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+        <NavDropdown.Item href="#action/2.4">Separated link</NavDropdown.Item>
          </NavDropdown>
           {/* <NavItem eventKey={3} href="#">
             <i className="fa fa-search" />

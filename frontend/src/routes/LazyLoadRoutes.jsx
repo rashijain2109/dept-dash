@@ -39,5 +39,9 @@ export const TableList = Loadable({
   "loading": () => loading
 });
 
+export const Projects = Loadable({
+  "loader": () => import("../views/Projects"),
+  "loading": () => loading
+});
 
 

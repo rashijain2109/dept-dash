@@ -19,6 +19,7 @@ import React, { Component } from "react";
 import { FormGroup, FormLabel, FormControl, Row } from "react-bootstrap";
 
 function FieldGroup({ label, ...props }) {
+  console.log("inside FieldGroup");
   return (
     <FormGroup>
       <FormLabel>{label}</FormLabel>
@@ -29,6 +30,7 @@ function FieldGroup({ label, ...props }) {
 
 export class FormInputs extends Component {
   render() {
+    console.log("inside FormInputs");
     var row = [];
     for (var i = 0; i < this.props.ncols.length; i++) {
       row.push(
