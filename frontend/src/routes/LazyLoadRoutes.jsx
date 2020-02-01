@@ -44,4 +44,10 @@ export const Projects = Loadable({
   "loading": () => loading
 });
 
+export const FacultyProfile = Loadable({
+  "loader": () => import("../views/FacultyProfile"),
+  "loading": () => loading
+});
+
+
 

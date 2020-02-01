@@ -19,7 +19,7 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import NotificationSystem from "react-notification-system";
 import { Redirect } from "react-router";
-import { Home, ErrorPage404, Login, Logout, Dashboard, TableList, Projects } from "../routes/LazyLoadRoutes";
+import { Home, ErrorPage404, Login, Logout, Dashboard, TableList, Projects, FacultyProfile } from "../routes/LazyLoadRoutes";
 
 import AdminNavbar from "../components/Navbars/AdminNavbar";
 import Footer from "../components/Footer/Footer";
@@ -201,6 +201,7 @@ getBrandText = path => {
             <Route path = "/admin/dashboard" render={props => (<Dashboard {...props} handleClick={this.handleNotificationClick} /> )} />
             <Route path = "/admin/table" render={props => (<TableList {...props} handleClick={this.handleNotificationClick} /> )} />
             <Route path = "/admin/projects" render={props => (<Projects {...props} handleClick={this.handleNotificationClick} /> )} />
+            <Route path = "/admin/faculty" render={props => (<FacultyProfile {...props} handleClick={this.handleNotificationClick} /> )} />
             <Redirect to= "/admin/dashboard" />
           </Switch>
         </div>
