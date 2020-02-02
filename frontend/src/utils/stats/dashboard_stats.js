@@ -1,5 +1,5 @@
-export const getFacultyCount = () => {
-    return 10;
+export const getFacultyCount = (data) => {
+    return data.length;
 }
 
 export const getScholarCount = (data) => {

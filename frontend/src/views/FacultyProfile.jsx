@@ -1,39 +1,83 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 import {
   Container,
   Row,
-  Col
+  Col,
+  Card,
+  Button
 } from "react-bootstrap";
 
-import { Card } from "../components/Card/Card.jsx";
-import { FormInputs } from "../components/FormInputs/FormInputs.jsx";
-import { UserCard } from "../components/UserCard/UserCard.jsx";
-import Button from "../components/CustomButton/CustomButton.jsx";
+import {axiosGET} from "../utils/axiosClient.js";
 
-import avatar from "../assets/img/faces/face-3.jpg";
+import avatar from "../assets/img/profile-avatar.png";
 
 class UserProfile extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      faculties_list: []
+    };
+  };
+
+  componentDidMount(){
+    axiosGET('http://localhost:8000/api/faculties/')
+      .then(res => {
+        const faculties_list = res.data;
+        this.setState({faculties_list});
+        console.log(this.state.faculties_list);
+      });
+  };
+
+  renderCard = () => {
+    let card = []
+    for(var i in this.state.faculties_list){
+      card.push(
+        <Row>
+          <Col md={12}>
+            <Card style={{width:"100%", height:"12vw", objectFit:"cover"}}>
+              <Row>
+                <Col md={4}>
+                  <Card.Img style={{width:"12vw", height:"12vw"}} src={avatar} variant="top"/>
+                </Col>
+                <Col md={8}>
+                  <Card.Body>
+                    <Row>
+                      <Col md={8}>
+                        <Card.Text>
+                          <h3>{this.state.faculties_list[i]['name']}</h3>
+                          <h4>{this.state.faculties_list[i]['email']}</h4>
+                          <h4>{this.state.faculties_list[i]['contact_num']}</h4>
+                        </Card.Text>
+                      </Col>
+                      <Col md={4}>
+                        <br />
+                        <Row>
+                          <Button variant="primary">Projects</Button>
+                        </Row>
+                        <br />
+                        <Row>
+                          <Button variant="primary">Publications</Button>
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+        </Row>
+      )
+    }
+    return card;
+  }
+
   render() {
     return (
       <div className="content">
-        empty
+        <Container>
+        {this.state.faculties_list && this.renderCard()}      
+        </Container>
       </div>
     );
   }

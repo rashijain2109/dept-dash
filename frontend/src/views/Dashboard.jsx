@@ -48,6 +48,7 @@ class Dashboard extends Component {
       scholarsData: [],
       publicationsData: [],
       projectsData: [],
+      facultyData: [],
     }
   }
 
@@ -71,6 +72,13 @@ class Dashboard extends Component {
         const projectsData = res.data;
         this.setState({ projectsData });
         console.log(projectsData);
+      })
+
+    axiosGET('http://localhost:8000/api/faculties/')
+      .then(res => {
+        const facultyData = res.data;
+        this.setState({ facultyData });
+        console.log(facultyData);
       })
   }
 
@@ -102,7 +110,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-wallet text-success" />}
                 statsText="Faculty"
-                statsValue={getFacultyCount()}
+                statsValue={getFacultyCount(this.state.facultyData)}
                 statsIcon={<i className="fa fa-calendar-o" />}
                 statsIconText="Last day"
               />
