@@ -19,6 +19,7 @@ import Dashboard from "./views/Dashboard.jsx";
 import TableList from "./views/TableList.jsx";
 import Projects from "./views/Projects.jsx";
 import FacultyProfile from "./views/FacultyProfile";
+import Publications from "./views/Publications";
 /*
 import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
@@ -53,6 +54,13 @@ const dashboardRoutes = [
     name: "Facutly Profile",
     icon: "pe-7s-note2",
     component: FacultyProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/publications",
+    name: "Publications",
+    icon: "pe-7s-note2",
+    component: Publications,
     layout: "/admin"
   }
   /*

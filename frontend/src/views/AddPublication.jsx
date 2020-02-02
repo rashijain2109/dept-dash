@@ -85,6 +85,8 @@ class UserProfile extends Component {
                 title={this.props.type}
                 content={
                   <form>
+                    <button type="button" class="btn btn-warning"
+                      onClick={this.props.handleClose}>Close</button>
                     <Row>
                       <div className="col-md-6" key={1}>
                         <FormGroup>
