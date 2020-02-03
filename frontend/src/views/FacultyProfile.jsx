@@ -4,7 +4,8 @@ import {
   Row,
   Col,
   Card,
-  Button
+  Button,
+  Form,
 } from "react-bootstrap";
 
 import {axiosGET} from "../utils/axiosClient.js";
@@ -16,7 +17,9 @@ class UserProfile extends Component {
   constructor(props){
     super(props);
     this.state = {
-      faculties_list: []
+      faculties_list: [],
+      scholars_list: [],
+      selection: "Faculty",
     };
   };
 
@@ -27,27 +30,33 @@ class UserProfile extends Component {
         this.setState({faculties_list});
         console.log(this.state.faculties_list);
       });
+
+    axiosGET('http://localhost:8000/api/scholars/')
+      .then(res => {
+        const scholars_list = res.data;
+        this.setState({scholars_list});
+        console.log(this.state.scholars_list);
+      });
   };
 
-  renderCard = () => {
+  renderCard = (data) => {
     let card = []
-    for(var i in this.state.faculties_list){
+    for(var i in data){
       card.push(
         <Row>
           <Col md={12}>
-            <Card style={{width:"100%", height:"12vw", objectFit:"cover"}}>
+            <Card>
               <Row>
                 <Col md={4}>
-                  <Card.Img style={{width:"12vw", height:"12vw"}} src={avatar} variant="top"/>
+                  <Card.Img src={avatar} variant="top" style={{maxWidth:"200px", maxHeight:"200px"}}/>
                 </Col>
                 <Col md={8}>
                   <Card.Body>
                     <Row>
                       <Col md={8}>
                         <Card.Text>
-                          <h3>{this.state.faculties_list[i]['name']}</h3>
-                          <h4>{this.state.faculties_list[i]['email']}</h4>
-                          <h4>{this.state.faculties_list[i]['contact_num']}</h4>
+                          <h3>{data[i]['name']}</h3>
+                          <h4>{data[i]['email']}</h4>
                         </Card.Text>
                       </Col>
                       <Col md={4}>
@@ -72,11 +81,25 @@ class UserProfile extends Component {
     return card;
   }
 
+  handleSelect = (event) => {
+    this.setState({selection: event.target.value})
+  };
+
   render() {
     return (
       <div className="content">
         <Container>
-        {this.state.faculties_list && this.renderCard()}      
+        <Form>
+          <Form.Group>
+            <Form.Control as="select" onChange={this.handleSelect}>
+              <option>Faculty</option>
+              <option>Scholar</option>
+            </Form.Control>
+          </Form.Group>
+        </Form>
+
+        {this.state.faculties_list && this.state.selection=="Faculty" && this.renderCard(this.state.faculties_list)}
+        {this.state.scholars_list && this.state.selection=="Scholar" && this.renderCard(this.state.scholars_list)}      
         </Container>
       </div>
     );
