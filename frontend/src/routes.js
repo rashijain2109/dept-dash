@@ -35,6 +35,13 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
+    path: "/publications",
+    name: "Publications",
+    icon: "pe-7s-note2",
+    component: Publications,
+    layout: "/admin"
+  },
+  {
     path: "/projects",
     name: "Projects",
     icon: "pe-7s-note2",
@@ -43,18 +50,13 @@ const dashboardRoutes = [
   },
   {
     path: "/faculty",
-    name: "Facutly Profile",
+    name: "Facutly_Profile",
     icon: "pe-7s-note2",
     component: FacultyProfile,
     layout: "/admin"
-  },
-  {
-    path: "/publications",
-    name: "Publications",
-    icon: "pe-7s-note2",
-    component: Publications,
-    layout: "/admin"
   }
+  
+  
   /*
   {
     path: "/typography",

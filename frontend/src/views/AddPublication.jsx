@@ -1,19 +1,11 @@
 import React, { Component } from "react";
-import SelectSearch from 'react-select-search';
 import {
-
   Container,
-
   Row,
-
   Col,
-
   FormGroup,
-
   FormLabel,
-
   FormControl,
-
 } from "react-bootstrap";
 
 
@@ -125,11 +117,18 @@ class AddPublication extends Component {
           <Row>
             <Col md={12}>
               <Card 
-                title={this.props.type}
                 content={
+                  <div>
+                  <Row>
+                  <Col sm={10}>
+                    <h4 className="title">{this.props.type}</h4>
+                  </Col>
+                  <Col sm={2}>
+                  <button type="button" onClick={this.props.handleClose} 
+                                                  class="btn btn-warning">Close</button>
+                  </Col>
+                </Row>
                   <form>
-                    <button type="button" class="btn btn-warning"
-                      onClick={this.props.handleClose}>Close</button>
                     <Row>
                       <div className="col-md-6" key={1}>
                         <FormGroup>
@@ -230,6 +229,7 @@ class AddPublication extends Component {
 
                     <div className="clearfix" />
                   </form>
+                  </div>
                 }
               />
             </Col>

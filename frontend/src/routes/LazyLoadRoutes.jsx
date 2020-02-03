@@ -29,10 +29,6 @@ export const Dashboard = Loadable({
   "loading": () => loading
 });
 
-export const UserProfile = Loadable({
-  "loader": () => import("../views/UserProfile"),
-  "loading": () => loading
-});
 
 export const Projects = Loadable({
   "loader": () => import("../views/Projects"),

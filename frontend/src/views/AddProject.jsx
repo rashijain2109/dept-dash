@@ -12,7 +12,7 @@ import { Card } from "../components/Card/Card.jsx";
 import Button from "../components/CustomButton/CustomButton.jsx";
 
 
-class UserProfile extends Component {
+class AddProject extends Component {
 
   constructor(props){
     super(props);
@@ -60,13 +60,13 @@ class UserProfile extends Component {
                 content={
                   <div>
                   <Row>
-                  <Col md={10}>
-                <h4 className="title">{this.props.type}</h4>
-                  </Col>
-                  <Col md={2}>
-                  <button type="button" onClick={this.props.handleClose} 
-                                                  class="btn btn-info">Close</button>
-                  </Col>
+                    <Col sm={10}>
+                      <h4 className="title">{this.props.type}</h4>
+                    </Col>
+                    <Col sm={2}>
+                    <button type="button" onClick={this.props.handleClose} 
+                                                    class="btn btn-warning">Close</button>
+                    </Col>
                   </Row>
                   <form>
                     <Row>
@@ -169,7 +169,7 @@ class UserProfile extends Component {
 
 }
 
-export default UserProfile;
+export default AddProject;
 
 
 

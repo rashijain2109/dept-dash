@@ -9,8 +9,8 @@ import Card from "../components/Card/Card.jsx";
 
 import {axiosGET, axiosPOST, axiosDELETE} from "../utils/axiosClient.js"
 
-import UserProfile from "./UserProfile";
 import ProjectInfo from "./ProjectInfo";
+import AddProject from "./AddProject";
 
 class Projects extends Component {
 
@@ -142,7 +142,8 @@ class Projects extends Component {
                   <div>
                 <button type="button" class="btn btn-info" onClick={this.handleAdd}>Add a new Project</button>
                 <BootstrapTable keyField='id' data={ products } columns={ columns } rowEvents={ rowEvents } bordered={false} 
-                filter={ filterFactory() } hover="true" condensed="true" />
+                filter={ filterFactory() } hover="true" condensed="true" 
+                rowStyle={{backgroundColor: "white"}}/>
                 </div>
                 </Col>
                 </Row>
@@ -154,7 +155,7 @@ class Projects extends Component {
                 </div>
                 <div id = "Add" ref={this.divAdd}>
                   {this.state.isAddClicked &&
-                   <UserProfile type="Add Project" handleClose={this.closeAdd} /> 
+                   <AddProject type="Add Project" handleClose={this.closeAdd} /> 
                   }
                 </div>
         </div>

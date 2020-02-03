@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
-import UserProfile from "./UserProfile";
+import AddProject from "./AddProject";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Container, Row, Col, Table } from "react-bootstrap";
 
@@ -92,7 +92,7 @@ class ProjectInfo extends Component {
         </div>
         <div id="Edit" ref={this.divEdit}>
           {this.state.isEditClicked &&
-            <UserProfile data={this.props.data} type="Edit Project" handleClose={this.closeEdit}/>
+            <AddProject data={this.props.data} type="Edit Project" handleClose={this.closeEdit}/>
           }
         </div>
         </div>
