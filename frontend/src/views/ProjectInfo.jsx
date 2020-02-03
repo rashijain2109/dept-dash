@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
-import AddPublication from "./AddPublication";
+import UserProfile from "./UserProfile";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Container, Row, Col, Table } from "react-bootstrap";
 
@@ -9,7 +9,7 @@ import {axiosGET, axiosPOST, axiosDELETE} from "../utils/axiosClient.js"
 
 import Card from "../components/Card/Card.jsx";
 
-class PublicationInfo extends Component {
+class ProjectInfo extends Component {
 
   constructor(props){
     super(props);
@@ -75,20 +75,12 @@ class PublicationInfo extends Component {
                           <td>{this.props.data["details"]}</td>
                       </tr>
                       <tr>
-                          <td>Publication type</td>
-                          <td>{this.props.data["pub_type"]}</td>
+                          <td>Agency</td>
+                          <td>{this.props.data["agency"]}</td>
                       </tr>
                       <tr>
-                          <td>Publication Date</td>
-                          <td>{this.props.data["pub_date"]}</td>
-                      </tr>
-                      <tr>
-                          <td>Digital Object Identifier Number</td>
-                          <td>{this.props.data["doi_number"]}</td>
-                      </tr>
-                      <tr>
-                          <td>Page Number</td>
-                          <td>{this.props.data["page_number"]}</td>
+                          <td>Scheme</td>
+                          <td>{this.props.data["scheme"]}</td>
                       </tr>
                     </tbody>
                   </Table>
@@ -100,7 +92,7 @@ class PublicationInfo extends Component {
         </div>
         <div id="Edit" ref={this.divEdit}>
           {this.state.isEditClicked &&
-            <AddPublication data={this.props.data} type="Edit Publication" handleClose={this.closeEdit}/>
+            <UserProfile data={this.props.data} type="Edit Project" handleClose={this.closeEdit}/>
           }
         </div>
         </div>
@@ -108,4 +100,4 @@ class PublicationInfo extends Component {
 }
 }
 
-export default PublicationInfo;
+export default ProjectInfo;

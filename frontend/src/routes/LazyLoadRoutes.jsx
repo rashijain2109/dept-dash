@@ -34,11 +34,6 @@ export const UserProfile = Loadable({
   "loading": () => loading
 });
 
-export const TableList = Loadable({
-  "loader": () => import("../views/TableList"),
-  "loading": () => loading
-});
-
 export const Projects = Loadable({
   "loader": () => import("../views/Projects"),
   "loading": () => loading

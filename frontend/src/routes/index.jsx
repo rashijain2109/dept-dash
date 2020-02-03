@@ -13,19 +13,18 @@ import { checkToken } from "../utils/jwt";
 loadProgressBar();
 
 const AuthRoute = ({ component: Component, ...rest }) => {
- /* if(checkToken()){
-    return (
-      <Switch>
-        <Route path="/admin/dashboard" component = {Component} />
-      </Switch>
-    )
-  }
-  else{
-    return(
-      <Redirect to="/login" />
-    )
-  }
-}*/
+  return (
+      <Route
+        {...rest}
+        render={props =>
+          checkToken() ? <Redirect to = "/admin/dashboard" /> : <Redirect to = "/login" />
+        }
+      />
+  );
+  
+};
+
+const AuthRoute2 = ({ component: Component, ...rest }) => {
   return (
       <Route
         {...rest}
@@ -60,8 +59,12 @@ export default class Routes extends Component {
               <Logout {...props} setRouterToken={this.setToken.bind(this)} />
             )}
           />
-          <AuthRoute exact path="/" component = {AdminLayout} />
-          <AuthRoute path="/admin" component = {AdminLayout} />
+          {/* <AuthRoute exact path="/" component = {AdminLayout} />
+          <AuthRoute path="/admin" component = {AdminLayout} /> */}
+          <AuthRoute exact path="/" />
+          <AuthRoute exact path="/admin" />
+          <AuthRoute2 path="/admin/dashboard" component={AdminLayout} />
+          <AuthRoute2 path="/admin" component={AdminLayout} />
           <Route component={ErrorPage404} />
         </Switch>
       </main>

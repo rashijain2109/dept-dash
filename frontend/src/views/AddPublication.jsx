@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import SelectSearch from 'react-select-search';
 import {
 
   Container,
@@ -18,27 +19,64 @@ import {
 
 
 import { Card } from "../components/Card/Card.jsx";
-
 import { FormInputs } from "../components/FormInputs/FormInputs.jsx";
-
 import { UserCard } from "../components/UserCard/UserCard.jsx";
-
 import Button from "../components/CustomButton/CustomButton.jsx";
 
 
+import {axiosGET, axiosPOST, axiosDELETE} from "../utils/axiosClient.js"
 
 import avatar from "../assets/img/faces/face-3.jpg";
 
-
-
-class UserProfile extends Component {
-
-
+class AddPublication extends Component {
     constructor(props){
         super(props);
         this.state = {
+          faculties_list: [],
+          // selectValue: [],
+          // query: "",
+          // filtered_list: []
         }
       }
+    componentDidMount(){
+      axiosGET('http://localhost:8000/api/faculties/')
+      .then(res => {
+        const faculties_list = res.data;
+        this.setState({ faculties_list });
+        // this.setState({ filtered_list: faculties_list });
+        console.log(this.state.faculties_list);
+      });
+    }
+
+    // handleChange = (e) => {
+    //   var newEmail = e.target.value;
+    //   var newValue = "";
+    //   for(var i in this.state.faculties_list){
+    //     if(this.state.faculties_list[i]["email"] == newEmail){
+    //       newValue = this.state.faculties_list[i];
+    //       break;
+    //     }
+    //   }
+    //   var selectValue = this.state.selectValue;
+    //   selectValue.push(newValue);
+    //   this.setState({ selectValue: selectValue });
+    //   console.log("selectValue:",selectValue);
+    // }
+    // handleInputChange = (event) => {
+    //   const query = event.target.value;
+    //   this.setState(prevState => {
+    //   const filtered_list = prevState.faculties_list.filter(element => {
+    //     return element["name"].toLowerCase().includes(query.toLowerCase());
+    //   });
+
+    //   return {
+    //     query,
+    //     filtered_list
+    //   };
+    // });
+    // }
+
+
   render() {
     var status = "";
     var type = "";
@@ -74,6 +112,11 @@ class UserProfile extends Component {
         page_number = this.props.data["page_number"];
         id=this.props.data["id"];
     }
+    var display = "";
+    for(var i in this.state.selectValue){
+      display = display + "  " + this.state.selectValue[i]["name"];
+    }
+
     return (
 
       <div className="content">
@@ -90,15 +133,41 @@ class UserProfile extends Component {
                     <Row>
                       <div className="col-md-6" key={1}>
                         <FormGroup>
-                          <FormLabel>Select Authors</FormLabel>
-                          <FormControl as="select" multiple>
-                            <option>Daksh Yashlaha</option>
-                            <option>Rashi Jain</option>
-                            <option>Nihal Jain</option>
-                            <option>Pranjal Gupta</option>
-                            <option>Ujjwal Raizada</option>
-                            <option>Krut Patel</option>
-                          </FormControl>
+                          {/* <div id="Selected Fcaulties">
+                            {display}
+                          </div>
+                          <input
+                          placeholder="Search for..."
+                          value={this.state.query}
+                          onChange={this.handleInputChange}
+                          />
+
+                        <FormLabel>Select new faculty</FormLabel>
+                        <FormControl as="select" multiple onChange={this.handleChange}>
+                        { this.state.filtered_list.map((obj) => {
+                            return <option value={obj["email"]}>
+                              {obj["name"]}</option>
+                          })
+                        }
+                        </FormControl>
+
+                        <FormLabel>Remove a faculty</FormLabel>
+                        <FormControl as="select" multiple onChange={this.handleChange}>
+                        { this.state.selectValue.map((obj) => {
+                            return <option value={obj["email"]}>
+                              {obj["name"]}</option>
+                          })
+                        }
+                        </FormControl> */}
+                        <FormLabel>Authors</FormLabel>
+                        <FormControl as="select" multiple>
+                        { this.state.faculties_list.map((obj) => {
+                            return <option value={obj["email"]}>
+                              {obj["name"]}</option>
+                          })
+                        }
+                        </FormControl>
+
                         </FormGroup>
                       </div>
                     </Row>
@@ -171,7 +240,7 @@ class UserProfile extends Component {
   }
 }
 
-export default UserProfile;
+export default AddPublication;
 
 
 

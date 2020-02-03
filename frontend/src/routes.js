@@ -16,7 +16,6 @@
 
 */
 import Dashboard from "./views/Dashboard.jsx";
-import TableList from "./views/TableList.jsx";
 import Projects from "./views/Projects.jsx";
 import FacultyProfile from "./views/FacultyProfile";
 import Publications from "./views/Publications";
@@ -33,13 +32,6 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard,
-    layout: "/admin"
-  },
-  {
-    path: "/table",
-    name: "Table List",
-    icon: "pe-7s-note2",
-    component: TableList,
     layout: "/admin"
   },
   {
