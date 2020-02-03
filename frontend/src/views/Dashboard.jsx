@@ -20,6 +20,7 @@ import ChartistGraph from "react-chartist";
 import { Container, Row, Col } from "react-bootstrap";
 
 import {axiosGET, axiosPOST, axiosDELETE} from "../utils/axiosClient.js"
+import {Link} from "react-router-dom";
 
 import { Card } from "../components/Card/Card.jsx";
 import { StatsCard } from "../components/StatsCard/StatsCard.jsx";
@@ -92,46 +93,61 @@ class Dashboard extends Component {
     }
     return legend;
   }
+
   render() {
     return (
       <div className="content">
         <Container fluid>
           <Row>
             <Col lg={3} sm={6}>
-              <StatsCard
-                bigIcon={<i className="pe-7s-server text-warning" />}
-                statsText="Research Scholar"
-                statsValue={getScholarCount(this.state.scholarsData)}
-                statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
-              />
+              <a style={{ cursor: "pointer" }} onClick={() => {this.props.history.push({
+                                                                pathname: "/admin/faculty",
+                                                                state: {type: 'Scholar'}})
+                                                              }}>
+                <StatsCard
+                  bigIcon={<i className="pe-7s-server text-warning" />}
+                  statsText="Research Scholar"
+                  statsValue={getScholarCount(this.state.scholarsData)}
+                  statsIcon={<i className="fa fa-refresh" />}
+                  statsIconText="Updated now"
+                />
+              </a>
             </Col>
             <Col lg={3} sm={6}>
-              <StatsCard
-                bigIcon={<i className="pe-7s-wallet text-success" />}
-                statsText="Faculty"
-                statsValue={getFacultyCount(this.state.facultyData)}
-                statsIcon={<i className="fa fa-calendar-o" />}
-                statsIconText="Last day"
-              />
+              <a style={{ cursor: "pointer" }} onClick={() => {this.props.history.push({
+                                                                pathname: "/admin/faculty",
+                                                                state: {type: 'Faculty'}})
+                                                              }}>
+                <StatsCard
+                  bigIcon={<i className="pe-7s-wallet text-success" />}
+                  statsText="Faculty"
+                  statsValue={getFacultyCount(this.state.facultyData)}
+                  statsIcon={<i className="fa fa-calendar-o" />}
+                  statsIconText="Last day"
+                />
+              </a>
             </Col>
             <Col lg={3} sm={6}>
-              <StatsCard
-                bigIcon={<i className="pe-7s-graph1 text-danger" />}
-                statsText="Projects"
-                statsValue={getProjectsCount(this.state.projectsData)}
-                statsIcon={<i className="fa fa-clock-o" />}
-                statsIconText="In the last hour"
-              />
+              <a style={{ cursor: "pointer" }} onClick={() => {this.props.history.push('/admin/projects')}}>
+                <StatsCard
+                  bigIcon={<i className="pe-7s-graph1 text-danger" />}
+                  statsText="Projects"
+                  statsValue={getProjectsCount(this.state.projectsData)}
+                  statsIcon={<i className="fa fa-clock-o" />}
+                  statsIconText="In the last hour"
+                />
+              </a>
             </Col>
             <Col lg={3} sm={6}>
-              <StatsCard
-                bigIcon={<i className="fa fa-twitter text-info" />}
-                statsText="Publications"
-                statsValue={getPublicationsCount(this.state.publicationsData)}
-                statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
-              />
+              <a style={{ cursor: "pointer" }} onClick={() => {this.props.history.push('/admin/publications')}}>
+                <StatsCard
+                  bigIcon={<i className="fa fa-twitter text-info" />}
+                  statsText="Publications"
+                  statsValue={getPublicationsCount(this.state.publicationsData)}
+                  statsIcon={<i className="fa fa-refresh" />}
+                  statsIconText="Updated now"
+                />
+              </a>
             </Col>
           </Row>
           <Row>

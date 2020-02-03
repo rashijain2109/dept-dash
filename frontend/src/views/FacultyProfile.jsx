@@ -37,6 +37,15 @@ class UserProfile extends Component {
         this.setState({scholars_list});
         console.log(this.state.scholars_list);
       });
+
+      if(this.props.location.state){
+        if(this.props.location.state.type == "Faculty"){
+          this.setState({selection: "Faculty"});
+        }
+        if(this.props.location.state.type == "Scholar"){
+          this.setState({selection: "Scholar"});
+        }
+      }
   };
 
   renderCard = (data) => {
@@ -91,7 +100,7 @@ class UserProfile extends Component {
         <Container>
         <Form>
           <Form.Group>
-            <Form.Control as="select" onChange={this.handleSelect}>
+            <Form.Control as="select" onChange={this.handleSelect} defaultValue={this.state.selection} key={this.state.selection}>
               <option>Faculty</option>
               <option>Scholar</option>
             </Form.Control>
