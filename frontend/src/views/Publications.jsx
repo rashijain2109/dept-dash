@@ -153,21 +153,26 @@ class Publications extends Component {
         }
     };
     return (
-      <div>
+      <div className="content">
         {this.state && this.state.publicationsData &&
         <div ref={this.divMain}>
           <Container fluid>
             <Row>
             <Col md={12}>
               <div>
-                <button type="button" class="btn btn-info" onClick={this.handleAdd}>Add a new Publication</button>
+                <Row>
+                  <Col sm={10} />
+                  <Col sm={2}>
+                    <button type="button" class="btn btn-info" onClick={this.handleAdd}>Add a new Publication</button>
+                  </Col>
+                </Row>
+                <br />
                 <BootstrapTable keyField='id' data={ products } columns={ columns } rowEvents={ rowEvents } bordered={false} 
                                 filter={ filterFactory() } hover="true" condensed="true" 
                                 rowStyle={{backgroundColor: "white"}} />
               </div>
             </Col>
             </Row>
-          </Container>
             <div id = "Info" ref={this.divInfo}>
               {this.state.isInfoClicked &&
                 <PublicationInfo data={this.state.rowClicked} handleClose={this.closeInfo}/>                 
@@ -178,9 +183,10 @@ class Publications extends Component {
                 <AddPublication type="Add Publication" handleClose={this.closeAdd} /> 
               }
             </div>
+          </Container>
         </div>
         }
-        </div>
+      </div>
     );
 }
 }

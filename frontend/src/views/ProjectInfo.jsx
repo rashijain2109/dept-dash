@@ -43,15 +43,26 @@ class ProjectInfo extends Component {
   }
   render() {
     return (
-        <div>
+        <div className="content">
           <div ref={this.divMain}>
              <Col md={12}>
               <Card
-                plain
-                title="Details"
                 ctTableFullWidth
                 ctTableResponsive
                 content={
+                  <div className="content">
+                  <Row>
+                    <Col sm={10}>
+                      <h4 className="title">Details</h4>
+                    </Col>
+                    <Col sm={1}>
+                      <button style={{float: "right"}} type="button" class="btn btn-info" onClick={this.handleEdit}>Edit</button>
+                    </Col>
+                    <Col sm={1}>
+                      <button style={{float: "left"}} type="button" class="btn btn-warning" onClick={this.props.handleClose}>Close</button>
+                    </Col>
+                  </Row>
+                  <br />
                   <Table hover>
                     <tbody>
                       <tr>
@@ -84,10 +95,9 @@ class ProjectInfo extends Component {
                       </tr>
                     </tbody>
                   </Table>
+                  </div>
                 }
               />
-              <button type="button" class="btn btn-info" onClick={this.handleEdit}>Edit</button>
-              <button type="button" class="btn btn-info" onClick={this.props.handleClose}>Close</button>
             </Col>
         </div>
         <div id="Edit" ref={this.divEdit}>

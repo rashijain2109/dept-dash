@@ -133,14 +133,20 @@ class Projects extends Component {
         }
     };
     return (
-        <div>
+        <div className="content">
         {this.state && this.state.projectsData &&
         <div ref={this.divMain}>
           <Container fluid>
             <Row>
             <Col md={12}>
-                  <div>
-                <button type="button" class="btn btn-info" onClick={this.handleAdd}>Add a new Project</button>
+              <div>
+                <Row>
+                  <Col sm={10} />
+                  <Col sm={2}>
+                    <button type="button" class="btn btn-info" onClick={this.handleAdd}>Add a new Project</button>
+                  </Col>
+                </Row>
+                <br />
                 <BootstrapTable keyField='id' data={ products } columns={ columns } rowEvents={ rowEvents } bordered={false} 
                 filter={ filterFactory() } hover="true" condensed="true" 
                 rowStyle={{backgroundColor: "white"}}/>
@@ -158,7 +164,7 @@ class Projects extends Component {
                    <AddProject type="Add Project" handleClose={this.closeAdd} /> 
                   }
                 </div>
-        </div>
+              </div>
         }
         </div> 
        

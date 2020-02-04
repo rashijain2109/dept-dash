@@ -60,10 +60,10 @@ class AddProject extends Component {
                 content={
                   <div>
                   <Row>
-                    <Col sm={10}>
+                    <Col sm={11}>
                       <h4 className="title">{this.props.type}</h4>
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={1}>
                     <button type="button" onClick={this.props.handleClose} 
                                                     class="btn btn-warning">Close</button>
                     </Col>
