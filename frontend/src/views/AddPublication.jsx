@@ -25,9 +25,12 @@ class AddPublication extends Component {
         super(props);
         this.state = {
           faculties_list: [],
-          // selectValue: [],
-          // query: "",
-          // filtered_list: []
+          filtered_list: [],
+          selected_list: [],
+          query: "",
+          filtered_scholars: [],
+          scholars_list: [],
+          scholarQuery: ""
         }
       }
     componentDidMount(){
@@ -35,38 +38,78 @@ class AddPublication extends Component {
       .then(res => {
         const faculties_list = res.data;
         this.setState({ faculties_list });
-        // this.setState({ filtered_list: faculties_list });
-        console.log(this.state.faculties_list);
+        var filtered_list = faculties_list.map(obj => obj["email"]);
+        this.setState({ filtered_list });
+      });
+
+      axiosGET('http://localhost:8000/api/scholars/')
+      .then(res => {
+        const scholars_list = res.data;
+        this.setState({ scholars_list });
+        var filtered_scholars = scholars_list.map(obj => obj["email"]);
+        this.setState({ filtered_scholars });
       });
     }
 
-    // handleChange = (e) => {
-    //   var newEmail = e.target.value;
-    //   var newValue = "";
-    //   for(var i in this.state.faculties_list){
-    //     if(this.state.faculties_list[i]["email"] == newEmail){
-    //       newValue = this.state.faculties_list[i];
-    //       break;
-    //     }
-    //   }
-    //   var selectValue = this.state.selectValue;
-    //   selectValue.push(newValue);
-    //   this.setState({ selectValue: selectValue });
-    //   console.log("selectValue:",selectValue);
-    // }
-    // handleInputChange = (event) => {
-    //   const query = event.target.value;
-    //   this.setState(prevState => {
-    //   const filtered_list = prevState.faculties_list.filter(element => {
-    //     return element["name"].toLowerCase().includes(query.toLowerCase());
-    //   });
+    handleInputChange = (event) => {
+      const query = event.target.value;
+      this.setState(prevState => {
+      const filtered_list_whole = prevState.faculties_list.filter(element => {
+        return element["name"].toLowerCase().includes(query.toLowerCase());
+      });
 
-    //   return {
-    //     query,
-    //     filtered_list
-    //   };
-    // });
-    // }
+      var filtered_list = filtered_list_whole.map(obj => obj["email"]);
+      return {
+        query,
+        filtered_list
+      };
+    });
+    }
+
+    handleInputChangeScholar = (event) => {
+      const scholarQuery = event.target.value;
+      this.setState(prevState => {
+      const filtered_scholars_whole = prevState.scholars_list.filter(element => {
+        return element["name"].toLowerCase().includes(scholarQuery.toLowerCase());
+      });
+      var filtered_scholars = filtered_scholars_whole.map(obj => obj["email"]);
+      return {
+        scholarQuery,
+        filtered_scholars
+      };
+    });
+    }
+
+    handleClick = (email) => {
+      const isSelected = this.state.selected_list.includes(email);
+      var filtered_list = this.state.filtered_list;
+      var selected_list = this.state.selected_list;
+      var filtered_scholars = this.state.filtered_scholars;
+      if(isSelected){
+        selected_list = selected_list.filter(i => { if(i!=email) return i});
+        for(var i in this.state.faculties_list){
+          if(this.state.faculties_list[i]["email"] == email){
+            filtered_list = [ ...this.state.filtered_list, email];
+            break;
+          }
+        }
+        for(var i in this.state.scholars_list){
+          if(this.state.scholars_list[i]["email"] == email){
+            filtered_scholars = [ ...this.state.filtered_scholars, email];
+            break;
+          }
+        }
+      }
+      else{
+        filtered_list = filtered_list.filter(i => { if(i!=email) return i});
+        filtered_scholars = filtered_scholars.filter(i => { if(i!=email) return i});
+        selected_list = [ ...this.state.selected_list, email];
+      }
+      this.setState({ filtered_list, selected_list, filtered_scholars });
+      
+    }
+
+
 
 
   render() {
@@ -132,9 +175,7 @@ class AddPublication extends Component {
                     <Row>
                       <div className="col-md-6" key={1}>
                         <FormGroup>
-                          {/* <div id="Selected Fcaulties">
-                            {display}
-                          </div>
+
                           <input
                           placeholder="Search for..."
                           value={this.state.query}
@@ -142,30 +183,59 @@ class AddPublication extends Component {
                           />
 
                         <FormLabel>Select new faculty</FormLabel>
-                        <FormControl as="select" multiple onChange={this.handleChange}>
-                        { this.state.filtered_list.map((obj) => {
-                            return <option value={obj["email"]}>
-                              {obj["name"]}</option>
-                          })
-                        }
-                        </FormControl>
+                
+                        {this.state.faculties_list.map((obj) => {
+                          if(!this.state.filtered_list.includes(obj["email"])) 
+                              return null;
 
-                        <FormLabel>Remove a faculty</FormLabel>
-                        <FormControl as="select" multiple onChange={this.handleChange}>
-                        { this.state.selectValue.map((obj) => {
-                            return <option value={obj["email"]}>
-                              {obj["name"]}</option>
-                          })
-                        }
-                        </FormControl> */}
-                        <FormLabel>Authors</FormLabel>
-                        <FormControl as="select" multiple>
-                        { this.state.faculties_list.map((obj) => {
-                            return <option value={obj["email"]}>
-                              {obj["name"]}</option>
-                          })
-                        }
-                        </FormControl>
+                          return <li key={obj["email"]}
+                          onClick={() => this.handleClick(obj["email"])}>
+                                    {obj["name"]}
+                                </li>
+                        })}
+
+                          <br />
+
+                          <input
+                          placeholder="Search for..."
+                          value={this.state.scholarQuery}
+                          onChange={this.handleInputChangeScholar}
+                          />
+                          <br />
+
+                        <FormLabel>Select new Scholar</FormLabel>
+                        {this.state.scholars_list.map((obj) => {
+                          if(!this.state.filtered_scholars.includes(obj["email"])) 
+                              return null;
+
+                          return <li key={obj["email"]}
+                          onClick={() => this.handleClick(obj["email"])}>
+                                    {obj["name"]}
+                                </li>
+                        })}
+                        
+                        <br />
+
+                        <FormLabel>Remove an author</FormLabel>
+                          {this.state.faculties_list.map((obj) => {
+                          if(!this.state.selected_list.includes(obj["email"])) 
+                              return null;
+
+                          return <li
+                          onClick={() => this.handleClick(obj["email"])} key={obj["email"]}>
+                                    {obj["name"]}
+                                </li>
+                        })}
+
+                        {this.state.scholars_list.map((obj) => {
+                          if(!this.state.selected_list.includes(obj["email"])) 
+                              return null;
+
+                          return <li class="click" 
+                          onClick={() => this.handleClick(obj["email"])} key={obj["email"]}>
+                                    {obj["name"]}
+                                </li>
+                        })}
 
                         </FormGroup>
                       </div>
