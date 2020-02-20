@@ -1,0 +1,160 @@
+[
+{
+    "model": "research.publication",
+    "pk": 1,
+    "fields": {
+        "title": "Convex Hull Optimization Algorithm",
+        "details": "",
+        "status": "ACT",
+        "pub_type": "CNF",
+        "pub_date": null,
+        "doi_number": null,
+        "page_number": null,
+        "faculty_authors": [
+            1,
+            2
+        ],
+        "student_authors": [
+            "2017A7PS1715H"
+        ],
+        "scholar_authors": [
+            "2017A7PS0325H"
+        ]
+    }
+},
+{
+    "model": "research.publication",
+    "pk": 2,
+    "fields": {
+        "title": "Software Quality tests",
+        "details": "",
+        "status": "ACT",
+        "pub_type": "JRN",
+        "pub_date": null,
+        "doi_number": null,
+        "page_number": null,
+        "faculty_authors": [
+            1,
+            2,
+            3
+        ],
+        "student_authors": [
+            "2017A7PS0124H"
+        ],
+        "scholar_authors": [
+            "2017A7PS0325H"
+        ]
+    }
+},
+{
+    "model": "research.publication",
+    "pk": 3,
+    "fields": {
+        "title": "Network Programming",
+        "details": "",
+        "status": "ACT",
+        "pub_type": "CNF",
+        "pub_date": null,
+        "doi_number": null,
+        "page_number": null,
+        "faculty_authors": [
+            1
+        ],
+        "student_authors": [
+            "2017A7PS0093H"
+        ],
+        "scholar_authors": [
+            "2017A7PS0325H",
+            "2017A7PS0703H"
+        ]
+    }
+},
+{
+    "model": "research.project",
+    "pk": 1,
+    "fields": {
+        "title": "Automatic Code Generation using Neural Networks",
+        "details": "",
+        "status": "ACT",
+        "agency": "IEEE",
+        "scheme": "NA",
+        "pi_copi": "NA",
+        "np_form": "",
+        "send_date": null,
+        "start_date": null,
+        "end_date": null,
+        "faculty_authors": [
+            1,
+            2
+        ],
+        "student_authors": [
+            "2017A7PS0124H"
+        ],
+        "scholar_authors": [
+            "2017A7PS0703H"
+        ],
+        "proposed_by": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "research.project",
+    "pk": 2,
+    "fields": {
+        "title": "Code Quality Testing of Software Products",
+        "details": "",
+        "status": "COM",
+        "agency": "IEEE",
+        "scheme": "NA",
+        "pi_copi": "NA",
+        "np_form": "",
+        "send_date": null,
+        "start_date": null,
+        "end_date": null,
+        "faculty_authors": [
+            1,
+            2
+        ],
+        "student_authors": [
+            "2017A7PS0093H"
+        ],
+        "scholar_authors": [
+            "2017A7PS0325H"
+        ],
+        "proposed_by": [
+            2
+        ]
+    }
+},
+{
+    "model": "research.project",
+    "pk": 3,
+    "fields": {
+        "title": "Using GANs for deepfakes detection",
+        "details": "",
+        "status": "ACT",
+        "agency": "IEEE",
+        "scheme": "NA",
+        "pi_copi": "NA",
+        "np_form": "",
+        "send_date": null,
+        "start_date": null,
+        "end_date": null,
+        "faculty_authors": [
+            2,
+            3
+        ],
+        "student_authors": [
+            "2017A7PS0124H"
+        ],
+        "scholar_authors": [
+            "2017A7PS0703H"
+        ],
+        "proposed_by": [
+            2
+        ]
+    }
+}
+]

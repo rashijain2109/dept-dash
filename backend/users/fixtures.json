@@ -1,0 +1,215 @@
+[
+{
+    "model": "users.customuser",
+    "pk": "f20170082@hyderabad.bits-pilani.ac.in",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-02-20T07:18:14.878Z",
+        "name": "Rashi Jain",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": "f20170093@hyderabad.bits-pilani.ac.in",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-02-20T07:26:08.529Z",
+        "name": "Shreeya Nelekar",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": "f20170124@hyderabad.bits-pilani.ac.in",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-02-20T07:25:37.537Z",
+        "name": "Pranjal Gupta",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": "f20170218@hyderabad.bits-pilani.ac.in",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-02-20T07:18:39.314Z",
+        "name": "Daksh Yashlaha",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": "f20170325@hyderabad.bits-pilani.ac.in",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-02-20T07:27:34.544Z",
+        "name": "Nihal Jain",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": "f20170703@hyderabad.bits-pilani.ac.in",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-02-20T07:26:57.054Z",
+        "name": "B Raghunathan",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": "f20171398@hyderabad.bits-pilani.ac.in",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-02-20T07:18:53.206Z",
+        "name": "Ujjwal Raizada",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": "f20171715@hyderabad.bits-pilani.ac.in",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-02-20T07:25:54.157Z",
+        "name": "Prakhar Goenka",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.faculty",
+    "pk": 1,
+    "fields": {
+        "customuser_ptr": "f20170082@hyderabad.bits-pilani.ac.in",
+        "alt_email": null,
+        "contact_num": "9876543210",
+        "address": "",
+        "profile_img": "",
+        "dept": 1
+    }
+},
+{
+    "model": "users.faculty",
+    "pk": 2,
+    "fields": {
+        "customuser_ptr": "f20170218@hyderabad.bits-pilani.ac.in",
+        "alt_email": null,
+        "contact_num": "9876543210",
+        "address": "",
+        "profile_img": "",
+        "dept": 1
+    }
+},
+{
+    "model": "users.faculty",
+    "pk": 3,
+    "fields": {
+        "customuser_ptr": "f20171398@hyderabad.bits-pilani.ac.in",
+        "alt_email": null,
+        "contact_num": "9876543210",
+        "address": "",
+        "profile_img": "",
+        "dept": 1
+    }
+},
+{
+    "model": "users.student",
+    "pk": "2017A7PS0093H",
+    "fields": {
+        "customuser_ptr": "f20170093@hyderabad.bits-pilani.ac.in"
+    }
+},
+{
+    "model": "users.student",
+    "pk": "2017A7PS0124H",
+    "fields": {
+        "customuser_ptr": "f20170124@hyderabad.bits-pilani.ac.in"
+    }
+},
+{
+    "model": "users.student",
+    "pk": "2017A7PS1715H",
+    "fields": {
+        "customuser_ptr": "f20171715@hyderabad.bits-pilani.ac.in"
+    }
+},
+{
+    "model": "users.researchscholar",
+    "pk": "2017A7PS0325H",
+    "fields": {
+        "customuser_ptr": "f20170325@hyderabad.bits-pilani.ac.in",
+        "tenure_type": "FT",
+        "fellowship": "PROJ",
+        "fellowship_details": "",
+        "joining_date": null,
+        "proposal_approval_date": null,
+        "qualifier_passing_date": null,
+        "graduation_date": null,
+        "supervisor": 1,
+        "co_supervisor": "",
+        "dept": 1
+    }
+},
+{
+    "model": "users.researchscholar",
+    "pk": "2017A7PS0703H",
+    "fields": {
+        "customuser_ptr": "f20170703@hyderabad.bits-pilani.ac.in",
+        "tenure_type": "FT",
+        "fellowship": "INST",
+        "fellowship_details": "",
+        "joining_date": null,
+        "proposal_approval_date": null,
+        "qualifier_passing_date": null,
+        "graduation_date": null,
+        "supervisor": 2,
+        "co_supervisor": "",
+        "dept": 1
+    }
+}
+]
