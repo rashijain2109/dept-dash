@@ -131,8 +131,8 @@ class UserProfile extends Component {
   async fetchFacultyData() {
     try {
       const data = await Promise.all([
-        axiosGET('http://localhost:8000/api/faculties/' + this.state.showProfile + '/projects'),
-        axiosGET('http://localhost:8000/api/faculties/' + this.state.showProfile + '/publications'),
+        axiosGET('http://localhost:8000/api/faculties/' + String(Number(this.state.showProfile)+1) + '/projects'),
+        axiosGET('http://localhost:8000/api/faculties/' + String(Number(this.state.showProfile)+1) + '/publications'),
       ]).then((values) => {
         console.log(values);
         this.setState({'FacultyProjects': values[0], 'FacultyPublications': values[1], 'spinner': false})
