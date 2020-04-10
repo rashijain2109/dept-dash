@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Home, ErrorPage404, Login, Logout, Dashboard } from "./LazyLoadRoutes";
 import AdminLayout from "../layouts/Admin.jsx";
 
-import { checkToken } from "../utils/jwt";
+import { checkToken, getDecodedToken } from "../utils/jwt";
 
 loadProgressBar();
 
@@ -25,11 +25,13 @@ const AuthRoute = ({ component: Component, ...rest }) => {
 };
 
 const AuthRoute2 = ({ component: Component, ...rest }) => {
+  var user = getDecodedToken();
+  console.log(user);
   return (
       <Route
         {...rest}
         render={props =>
-          checkToken() ? <Component {...props} /> : <Redirect to = "/login" />
+          checkToken() ? <Component {...props} user={user} /> : <Redirect to = "/login" />
         }
       />
   );

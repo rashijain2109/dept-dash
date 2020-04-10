@@ -14,3 +14,4 @@ let axiosMethod = (method, others) => {
 export const axiosGET = url => axiosMethod("GET", { url });
 export const axiosPOST = (url, data) => axiosMethod("POST", { url, data });
 export const axiosDELETE = url => axiosMethod("DELETE", { url });
+export const axiosPUT = (url, data) => axiosMethod("PUT", { url, data });

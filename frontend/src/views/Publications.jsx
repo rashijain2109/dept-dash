@@ -18,9 +18,14 @@ class Publications extends Component {
     super(props);
     this.state = {
       publicationsData: [],
+      HODasFacultyData: [],
       isAddClicked: false,
       isInfoClicked: false,
       rowClicked: [],
+      isFaculty: true,
+      HODasFaculty: false,
+      role: "faculty",
+      canEdit: true
     }
     this.divAdd = React.createRef();
     this.divInfo = React.createRef();
@@ -30,8 +35,16 @@ class Publications extends Component {
   updateJSON = (products) => {
 
     for(var i in products){
-      var temp = products[i]["authors"];
       products[i]["authors"] = "";
+      var temp = products[i]["faculty_authors"];
+      for(var j in temp){
+        products[i]["authors"] = products[i]["authors"] + " " + temp[j]["name"] + ",";
+      }
+      temp = products[i]["student_authors"];
+      for(var j in temp){
+        products[i]["authors"] = products[i]["authors"] + " " + temp[j]["name"] + ",";
+      }
+      temp = products[i]["scholar_authors"];
       for(var j in temp){
         products[i]["authors"] = products[i]["authors"] + " " + temp[j]["name"] + ",";
       }
@@ -57,13 +70,35 @@ class Publications extends Component {
     return products;
   }
 
-  componentDidMount() {
+  componentWillMount() {
     axiosGET('http://localhost:8000/api/publications/')
       .then(res => {
         const publicationsData = this.updateJSON(res.data);
         this.setState({ publicationsData });
         console.log(this.state.publicationsData);
+        var user = this.props.user;
+        this.setState({ role: user["role"] });
+        if(this.state.role == "hod"){
+          this.setState({ canEdit: false });
+          console.log("here");
+          var str = "http://localhost:8000/api/faculties/"+this.props.user["user"]["psrn"]+"/publications/";
+          console.log(str);
+          axiosGET(str)
+            .then(res => {
+              const HODasFacultyData = this.updateJSON(res.data);
+              this.setState({ HODasFacultyData });
+            })
+        }
+
       });
+  }
+  HODClick = () => {
+    this.setState({ isFaculty: true, HODasFaculty: false, isAddClicked: false,
+      isInfoClicked: false, canEdit: false });
+  }
+  facultyClick = () => {
+    this.setState({ isFaculty: false, HODasFaculty: true, isAddClicked: false,
+      isInfoClicked: false, canEdit: true });
   }
   componentDidUpdate() {
     if(this.state.isAddClicked){
@@ -96,7 +131,13 @@ class Publications extends Component {
   }
   render() {
 
-    var products = this.state.publicationsData;
+    var products = [];
+    if(this.state.isFaculty){
+      products = this.state.publicationsData;
+    }
+    else if(this.state.HODasFaculty){
+      products = this.state.HODasFacultyData;
+    }
     
     const columns = [{
       dataField: 'id',
@@ -113,12 +154,22 @@ class Publications extends Component {
       headerAlign: 'center',
       filter: textFilter(),
       headerStyle: (colum, colIndex) => {
-        return { width: '40%', textAlign: 'left' };
+        return { width: '35%', textAlign: 'left' };
         },
       sort: true
     }, {
       dataField: 'status',
       text: 'Status',
+      headerAlign: 'center',
+      headerStyle: (colum, colIndex) => {
+        return { width: '10%', textAlign: 'left' };
+        },
+      filter: textFilter(),
+      sort: true
+    }, 
+    {
+      dataField: 'pub_type',
+      text: 'Publication Type',
       headerAlign: 'center',
       headerStyle: (colum, colIndex) => {
         return { width: '10%', textAlign: 'left' };
@@ -149,11 +200,22 @@ class Publications extends Component {
     }];
     const rowEvents = {
         onClick: (e, row, rowIndex) => {
+            // if(this.state.role == "faculty" || (this.state.role == "hod" && this.state.HODasFaculty)){
+            //   this.setState({ canEdit: true });
+            // }
+            console.log(row);
             this.setState({ isInfoClicked: true, isAddClicked: false, rowClicked: row});
         }
     };
     return (
       <div className="content">
+        {this.state.role == "hod" && 
+        <div>
+        {/* <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onClick={this.HODClick}>HOD</button> */}
+        <button type="button" class="btn btn-info" onClick={this.HODClick}>HOD</button>
+        <button type="button" class="btn btn-info" onClick={this.facultyClick}>Faculty</button>
+        </div>
+        }
         {this.state && this.state.publicationsData &&
         <div ref={this.divMain}>
           <Container fluid>
@@ -163,24 +225,27 @@ class Publications extends Component {
                 <Row>
                   <Col sm={10} />
                   <Col sm={2}>
+                    { (this.state.role=="faculty" || (this.state.role == "hod" && this.state.HODasFaculty)) &&  
                     <button type="button" class="btn btn-info" onClick={this.handleAdd}>Add a new Publication</button>
+                    }
                   </Col>
                 </Row>
                 <br />
-                <BootstrapTable keyField='id' data={ products } columns={ columns } rowEvents={ rowEvents } bordered={false} 
-                                filter={ filterFactory() } hover="true" condensed="true" 
+                <BootstrapTable keyField='id' data={ products } columns={ columns } rowEvents={ rowEvents } bordered={true}
+                                 hover={true} condensed={true} striped={true}
+                                filter={ filterFactory() } 
                                 rowStyle={{backgroundColor: "white"}} />
               </div>
             </Col>
             </Row>
             <div id = "Info" ref={this.divInfo}>
               {this.state.isInfoClicked &&
-                <PublicationInfo data={this.state.rowClicked} handleClose={this.closeInfo}/>                 
+                <PublicationInfo data={this.state.rowClicked} handleClose={this.closeInfo} canEdit={this.state.canEdit} user={this.props.user}/>                 
               }
             </div>
             <div id = "Add" ref={this.divAdd}>
               {this.state.isAddClicked &&
-                <AddPublication type="Add Publication" handleClose={this.closeAdd} /> 
+                <AddPublication type="Add Publication" handleClose={this.closeAdd} user={this.props.user}/> 
               }
             </div>
           </Container>

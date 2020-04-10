@@ -15,6 +15,8 @@ class PublicationInfo extends Component {
     super(props);
     this.state = {
       isEditClicked: false,
+      isDeleteClicked: false,
+      message: ""
     };
     this.divEdit = React.createRef();
     this.divMain = React.createRef();
@@ -24,6 +26,18 @@ class PublicationInfo extends Component {
   }
   handleEdit = () => {
      this.setState({ isEditClicked: true});
+  }
+  handleDelete = () => {
+    axiosDELETE('http://localhost:8000/api/publications/'+this.props.data["id"]+'/')
+    .then(res => {
+        if(res.status == 204){
+          this.setState({ isDeleteClicked: true, message: "Deleted Successfully", isEditClicked: false});
+        }
+        else
+        {
+          this.setState({ isDeleteClicked: true, messgae: "Could not delete publication, Try again", isEditClicked: false });
+        }
+    });
   }
   componentDidUpdate(prevProps) {
       if(prevProps.data != this.props.data && this.state.isEditClicked)
@@ -51,14 +65,23 @@ class PublicationInfo extends Component {
                 ctTableFullWidth
                 ctTableResponsive
                 content={
+                  <div>
+                  {!this.state.isDeleteClicked &&
                   <div className="content">
                   <Row>
                   <Col sm={10}>
                     <h4 className="title"> Details</h4>
                   </Col>
                   <Col sm={1}>
+                    {this.props.canEdit &&
+                    <div>
+                
+                      <button style={{float: "right"}} type="button" class="btn btn-info" onClick={this.handleDelete}>Delete Publication
+                      </button>
                     <button style={{float: "right"}} type="button" class="btn btn-info" onClick={this.handleEdit}>Edit</button>
-                  </Col>
+                    </div>
+                    }
+                    </Col>
                   <Col sm={1}>
                     <button style={{float: "left"}} type="button" class="btn btn-warning" onClick={this.props.handleClose}>Close</button>
                   </Col>
@@ -106,12 +129,24 @@ class PublicationInfo extends Component {
                   </Table>
                   </div>
                 }
+             {
+               this.state.isDeleteClicked && 
+               <div>
+              <button type="button" class="close" aria-label="Close" onClick={this.props.handleClose}>
+             <span aria-hidden="true">&times;</span>
+             </button>
+             <div>{this.state.message}</div>
+             
+             </div>
+            }
+                </div>
+                }
               />
             </Col>
         </div>
         <div id="Edit" ref={this.divEdit}>
           {this.state.isEditClicked &&
-            <AddPublication data={this.props.data} type="Edit Publication" handleClose={this.closeEdit}/>
+            <AddPublication data={this.props.data} type="Edit Publication" handleClose={this.closeEdit} user={this.props.user} />
           }
         </div>
         </Container>

@@ -51,6 +51,9 @@ getBrandText = path => {
   return "Brand";
 };
   render() {
+   var user = this.props.user;
+   console.log("heree");
+   console.log(user);
    return (
       <div className="wrapper">
       <NotificationSystem ref="notificationSystem" style={style} />
@@ -63,10 +66,10 @@ getBrandText = path => {
             brandText={this.getBrandText(this.props.location.pathname)}
           />
           <Switch>
-            <Route path = "/admin/dashboard" render={props => (<Dashboard {...props} handleClick={this.handleNotificationClick} /> )} />
-            <Route path = "/admin/projects" render={props => (<Projects {...props} handleClick={this.handleNotificationClick} /> )} />
-            <Route path = "/admin/faculty" render={props => (<FacultyProfile {...props} handleClick={this.handleNotificationClick} /> )} />
-            <Route path = "/admin/publications" render={props => (<Publications {...props} handleClick={this.handleNotificationClick} /> )} />
+            <Route path = "/admin/dashboard" render={props => (<Dashboard {...props} handleClick={this.handleNotificationClick} user={user} /> )} />
+            <Route path = "/admin/projects" render={props => (<Projects {...props} handleClick={this.handleNotificationClick} user={user} /> )} />
+            <Route path = "/admin/faculty" render={props => (<FacultyProfile {...props} handleClick={this.handleNotificationClick} user={user} /> )} />
+            <Route path = "/admin/publications" render={props => (<Publications {...props} handleClick={this.handleNotificationClick} user={user} /> )} />
             <Route component = {ErrorPage404} />
           </Switch>
         </div>

@@ -17,10 +17,15 @@ class Projects extends Component {
   constructor(props){
     super(props);
     this.state = {
-      projectsData: [],
+      projectData: [],
       isAddClicked: false,
       isInfoClicked: false,
       rowClicked: [],
+      HODasFacultyData: [],
+      // isFaculty: true,
+      HODasFaculty: false,
+      role: "faculty",
+      canEdit: true
     }
     this.divAdd = React.createRef();
     this.divInfo = React.createRef();
@@ -29,9 +34,24 @@ class Projects extends Component {
 
   updateJSON = (products) => {
 
+    // for(var i in products){
+    //   var temp = products[i]["authors"];
+    //   products[i]["authors"] = "";
+    //   for(var j in temp){
+    //     products[i]["authors"] = products[i]["authors"] + " " + temp[j]["name"] + ",";
+    //   }
+
     for(var i in products){
-      var temp = products[i]["authors"];
       products[i]["authors"] = "";
+      var temp = products[i]["faculty_authors"];
+      for(var j in temp){
+        products[i]["authors"] = products[i]["authors"] + " " + temp[j]["name"] + ",";
+      }
+      temp = products[i]["student_authors"];
+      for(var j in temp){
+        products[i]["authors"] = products[i]["authors"] + " " + temp[j]["name"] + ",";
+      }
+      temp = products[i]["scholar_authors"];
       for(var j in temp){
         products[i]["authors"] = products[i]["authors"] + " " + temp[j]["name"] + ",";
       }
@@ -51,13 +71,34 @@ class Projects extends Component {
     return products;
   }
 
-  componentDidMount() {
+  componentWillMount() {
     axiosGET('http://localhost:8000/api/projects/')
       .then(res => {
-        const projectsData = this.updateJSON(res.data);
-        this.setState({ projectsData });
-        console.log(this.state.projectssData);
+        const projectData = this.updateJSON(res.data);
+        this.setState({ projectData });
+        console.log(this.state.projectData);
+        var user = this.props.user;
+        this.setState({ role: user["role"] });
+        if(this.state.role == "hod"){
+          console.log("here");
+          this.setState({ canEdit: false });
+          var str = "http://localhost:8000/api/faculties/"+this.props.user["user"]["psrn"]+"/projects/";
+          console.log(str);
+          axiosGET(str)
+            .then(res => {
+              const HODasFacultyData = this.updateJSON(res.data);
+              this.setState({ HODasFacultyData });
+            })
+        }
       });
+  }
+  HODClick = () => {
+    this.setState({ HODasFaculty: false, isAddClicked: false,
+      isInfoClicked: false, canEdit: false });
+  }
+  facultyClick = () => {
+    this.setState({ HODasFaculty: true, isAddClicked: false,
+      isInfoClicked: false, canEdit: true });
   }
   componentDidUpdate() {
     if(this.state.isAddClicked){
@@ -90,7 +131,13 @@ class Projects extends Component {
   }
   render() {
 
-    var products = this.state.projectsData;
+    var products = [];
+    if(!(this.state.HODasFaculty)){
+      products = this.state.projectData;
+    }
+    else if(this.state.HODasFaculty){
+      products = this.state.HODasFacultyData;
+    }
     
     const columns = [{
       dataField: 'id',
@@ -134,7 +181,13 @@ class Projects extends Component {
     };
     return (
         <div className="content">
-        {this.state && this.state.projectsData &&
+          {this.state.role == "hod" && 
+        <div>
+        <button type="button" class="btn btn-info" onClick={this.HODClick}>HOD</button>
+        <button type="button" class="btn btn-info" onClick={this.facultyClick}>Faculty</button>
+        </div>
+        }
+        {this.state && this.state.projectData &&
         <div ref={this.divMain}>
           <Container fluid>
             <Row>
@@ -143,7 +196,9 @@ class Projects extends Component {
                 <Row>
                   <Col sm={10} />
                   <Col sm={2}>
+                  { (this.state.role=="faculty" || (this.state.role == "hod" && this.state.HODasFaculty)) &&  
                     <button type="button" class="btn btn-info" onClick={this.handleAdd}>Add a new Project</button>
+                    }
                   </Col>
                 </Row>
                 <br />
@@ -156,12 +211,12 @@ class Projects extends Component {
                 </Container>
                 <div id = "Info" ref={this.divInfo}>
                   {this.state.isInfoClicked &&
-                    <ProjectInfo data={this.state.rowClicked} handleClose={this.closeInfo}/>                 
+                    <ProjectInfo data={this.state.rowClicked} handleClose={this.closeInfo} canEdit={this.state.canEdit} user={this.props.user} />                 
                   }
                 </div>
                 <div id = "Add" ref={this.divAdd}>
                   {this.state.isAddClicked &&
-                   <AddProject type="Add Project" handleClose={this.closeAdd} /> 
+                   <AddProject type="Add Project" handleClose={this.closeAdd} user={this.props.user}/> 
                   }
                 </div>
               </div>
